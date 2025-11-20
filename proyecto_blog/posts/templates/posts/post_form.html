@@ -15,7 +15,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{% url 'home' %}">Ì≥ù Blog</a>
+            <a class="navbar-brand fw-bold" href="{% url 'home' %}">Blog</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -44,7 +44,7 @@
                     {% csrf_token %}
 
                     <div class="mb-3">
-                        <label for="id_titulo" class="form-label">T√≠tulo</label>
+                        <label for="id_titulo" class="form-label">Titulo</label>
                         {{ form.titulo }}
                         {% if form.titulo.errors %}
                             <div class="alert alert-danger mt-2">{{ form.titulo.errors }}</div>
