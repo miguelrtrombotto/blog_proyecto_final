@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Posts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h1>Blog - Lista de Posts</h1>
+            </div>
+            <div class="col-md-4 text-end">
+                <a href="{% url 'post_create' %}" class="btn btn-primary">Crear Post</a>
+            </div>
+        </div>
+
+        {% if posts %}
+            <div class="row">
+                {% for post in posts %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            {% if post.imagen %}
+                                <img src="{{ post.imagen.url }}" class="card-img-top" alt="{{ post.titulo }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ post.titulo }}</h5>
+                                <p class="card-text">{{ post.contenido|truncatewords:20 }}</p>
+                                <small class="text-muted">{{ post.fecha_creacion|date:"d/m/Y H:i" }}</small>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <a href="{% url 'post_detail' post.pk %}" class="btn btn-info btn-sm">Ver</a>
+                                <a href="{% url 'post_update' post.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                                <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">No hay posts disponibles.</div>
+        {% endif %}
+
+        {% if is_paginated %}
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1">Primera</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a></li>
+                    {% endif %}
+
+                    <li class="page-item active"><span class="page-link">{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span></li>
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
