@@ -4,47 +4,65 @@ from .base import *
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9hk^9t+dr^y@czh$4(-52uu=a3ajl_ut9bjfz6e(=_zm#9u=az'
+SECRET_KEY = 'django-insecure-your-secret-key-here'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-# MODIFICADO: Cambiado de MySQL a SQLite para desarrollo sin servidor
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'blog_db',
+        'USER': 'root',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
-# from .base import *
 
-# # Quick-start development settings - unsuitable for production
-# # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+# Password validation
+# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
-# # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-9hk^9t+dr^y@czh$4(-52uu=a3ajl_ut9bjfz6e(=_zm#9u=az'
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
 
-# # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+# Internationalization
+# https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-# ALLOWED_HOSTS = []
+LANGUAGE_CODE = 'es-es'
+TIME_ZONE = 'America/Argentina/Buenos_Aires'
+USE_I18N = True
+USE_TZ = True
 
-# # Database
-# # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-# DATABASES = {
-#     'default': 
-#         {
-#             'ENGINE': 'django.db.backends.mysql',
-#             'NAME': 'blog_db',
-#             'USER': 'root',
-#             'PASSWORD': '1234',
-#             'HOST': 'localhost',
-#             'PORT': '3306',
-#         }
-# }
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

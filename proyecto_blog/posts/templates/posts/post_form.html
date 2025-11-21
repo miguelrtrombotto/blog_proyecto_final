@@ -9,6 +9,11 @@
         .navbar {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
+        .current-image {
+            max-width: 300px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -61,6 +66,18 @@
 
                     <div class="mb-3">
                         <label for="id_imagen" class="form-label">Imagen</label>
+                        {% if form.instance.imagen %}
+                            <div class="mb-3">
+                                <p class="text-muted">Imagen actual:</p>
+                                <img src="{{ form.instance.imagen.url }}" class="current-image" alt="{{ form.instance.titulo }}">
+                                <div class="mt-2">
+                                    <label class="form-check-label">
+                                        {{ form.imagen-clear }}
+                                        Eliminar imagen actual
+                                    </label>
+                                </div>
+                            </div>
+                        {% endif %}
                         {{ form.imagen }}
                         {% if form.imagen.errors %}
                             <div class="alert alert-danger mt-2">{{ form.imagen.errors }}</div>
